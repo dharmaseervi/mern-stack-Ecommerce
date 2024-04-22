@@ -31,9 +31,7 @@ export default function FeaturedProduct() {
 
     const handleClick = (item) => {
         const id = item._id;
-
         setProductOverviewId(id);
-
     }
 
     return (

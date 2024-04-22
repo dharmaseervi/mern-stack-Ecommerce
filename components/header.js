@@ -460,7 +460,7 @@ export default function Header() {
                   <div className="hidden lg:ml-8 lg:flex">
                     <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
                       <div>
-                        <Image src="/flag.png" alt="home" width={20} height={20} className=' obejct-cover ' />
+                      <img src="/flag.png" alt="home"  className='object-cover w-12 h-8' />
                       </div>
                       <span className="ml-3 block text-sm font-medium">IND</span>
                       <span className="sr-only">, change currency</span>

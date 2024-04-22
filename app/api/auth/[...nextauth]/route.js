@@ -17,6 +17,7 @@ const authOptions = {
                 try {
                     const user = await UserRegister.findOne({ email });
                     if (!user) {
+                        console.log('User not found');
                         return null;
                     }
                     const isValid = await bcrypt.compare(password, user.password);
