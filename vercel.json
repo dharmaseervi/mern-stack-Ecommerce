@@ -1,0 +1,5 @@
+{
+    "redirects": [
+      { "source": "/useraccount", "dest": "/useraccount/page.js", "permanent": false }
+    ]
+  }
