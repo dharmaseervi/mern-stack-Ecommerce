@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Layout from '../useraccount/layout'
+import Layout from '../useraccount/page'
 import { useSession } from 'next-auth/react'
 
 export default function Page() {

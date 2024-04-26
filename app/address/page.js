@@ -1,7 +1,7 @@
 
 import ShippinginfoPage from '@/components/ShippingInfo'
 import React from 'react'
-import Layout from '../useraccount/layout'
+import Layout from '../useraccount/page'
 
 export default function Page() {
     return (

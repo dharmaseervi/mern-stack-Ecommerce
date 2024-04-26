@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Layout from "../useraccount/layout";
+import Layout from "../useraccount/page";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
