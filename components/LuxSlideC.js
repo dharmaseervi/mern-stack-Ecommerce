@@ -29,7 +29,7 @@ export default function LuxSlideC() {
 
     return (
         <div className='m-6 rounded'>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                 {categoryData.map((category, index) => (
                     <div key={category.id} className="lux-card bg-gray-100 rounded-lg shadow-md p-6 flex flex-col justify-between">
                         <div className="aspect-w-3 aspect-h-4 mb-4">

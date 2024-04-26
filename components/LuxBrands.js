@@ -77,10 +77,10 @@ export default function LuxBrands() {
 
     return (
         <div>
-            <div className="flex flex-wrap justify-between items-center gap-4 p-6" >
+            <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 justify-center items-center gap-4 p-6" >
                 {brand.map((brand, index) => (
-                    <Link key={index} className="shadow-md rounded-lg p-8  max-w-lg  gap-4 flex border bg-slate-400 hover:bg-slate-300" href={`/mernlux${brand.href}`}>
-                        <div className='w-44 h-24  '>
+                    <Link key={index} className="shadow-md border-red-200 justify-center items-center rounded-lg p-8  max-w-lg  gap-4 flex border bg-slate-400 hover:bg-slate-300" href={`/mernlux${brand.href}`}>
+                        <div className='w-44 h-24'>
                             <img className='w-full h-full object-cover mix-blend-multiply' src={brand.brandImage} alt="" />
                         </div>
                     </Link>

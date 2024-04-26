@@ -1,68 +1,70 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import Layout from '../useraccount/layout';
-import { useSession } from 'next-auth/react';
-
+"use client";
+import React, { useEffect, useState } from "react";
+import Layout from "../useraccount/layout";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Page() {
   const [orderDetails, setOrderDetails] = useState([]);
-  const [query, setQuery] = useState('');
-  const [sortBy, setSortBy] = useState('createdAt'); // Default sort by createdAt
-  const [sortOrder, setSortOrder] = useState('desc'); // Default sort order
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("createdAt"); // Default sort by createdAt
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sort order
   const { data: session } = useSession();
   const userId = session?.user?._id;
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const res = await fetch(`/api/orders/savePayment?query=${userId}`,);
+        const res = await fetch(`/api/orders/savePayment?query=${userId}`);
         const data = await res.json();
         setOrderDetails(data.orders);
       } catch (error) {
-        console.error('Error fetching order details:', error);
+        console.error("Error fetching order details:", error);
       }
     };
 
     fetchOrderDetails();
   }, [userId]);
-  console.log(orderDetails, 'orderDetails');
+  console.log(orderDetails, "orderDetails");
 
-  const filteredOrders = orderDetails.map(order => {
-    const filteredItems = order.order.items.filter(item =>
-      item?.product?.productname.toLowerCase().includes(query.toLowerCase())
-    );
-    return {
-      ...order,
-      order: {
-        ...order.order,
-        items: filteredItems
-      }
-    };
-  }).filter(order => order.order.items.length > 0);
+  const filteredOrders = orderDetails
+    .map((order) => {
+      const filteredItems = order.order.items.filter((item) =>
+        item?.product?.productname.toLowerCase().includes(query.toLowerCase())
+      );
+      return {
+        ...order,
+        order: {
+          ...order.order,
+          items: filteredItems,
+        },
+      };
+    })
+    .filter((order) => order.order.items.length > 0);
 
-
-  const allItems = filteredOrders.flatMap(order => order.order.items);
+  const allItems = filteredOrders.flatMap((order) => order.order.items);
 
   const sortedFilteredOrders = [...filteredOrders]; // Copy the filteredOrders array
 
   // Sort all items based on the selected sorting criteria
-  sortedFilteredOrders.forEach(order => {
+  sortedFilteredOrders.forEach((order) => {
     order.order.items.sort((a, b) => {
-      if (sortBy === 'price') {
-        return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
-      } else if (sortBy === 'createdAt') {
-        return sortOrder === 'asc' ? new Date(a.createdAt) - new Date(b.createdAt) : new Date(b.createdAt) - new Date(a.createdAt);
+      if (sortBy === "price") {
+        return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
+      } else if (sortBy === "createdAt") {
+        return sortOrder === "asc"
+          ? new Date(a.createdAt) - new Date(b.createdAt)
+          : new Date(b.createdAt) - new Date(a.createdAt);
       } else {
         // Default sorting by product name (ascending)
         const productNameA = a.product.productname.toLowerCase();
         const productNameB = b.product.productname.toLowerCase();
-        return sortOrder === 'asc' ? productNameA.localeCompare(productNameB) : productNameB.localeCompare(productNameA);
+        return sortOrder === "asc"
+          ? productNameA.localeCompare(productNameB)
+          : productNameB.localeCompare(productNameA);
       }
     });
   });
-
-
-
 
   return (
     <Layout>
@@ -107,7 +109,7 @@ export default function Page() {
           <h1 className="text-center text-xl font-medium">No Orders Found</h1>
         )}
         {sortedFilteredOrders.map((order) => (
-          <div key={order._id}>
+          <Link href={"/order/" + order.order._id} key={order._id}>
             {order.order.items.map((item, index) => (
               <div
                 key={index}
@@ -123,14 +125,18 @@ export default function Page() {
                 <div className="col-span-2 h-full">
                   <p className="text-gray-600">Order ID: {order._id}</p>
                   <h1 className="font-medium">{item.product.productname}</h1>
-                  <p className="text-gray-600">{new Date(order.createdAt).toLocaleString()}</p>
+                  <p className="text-gray-600">
+                    {new Date(order.createdAt).toLocaleString()}
+                  </p>
                   <p className="text-green-600">Order Successful</p>
                   <p className="text-gray-700 font-semibold">₹{item.price}</p>
-                  <p className="text-gray-700 font-semibold">Quantity: {item.quantity}</p>
+                  <p className="text-gray-700 font-semibold">
+                    Quantity: {item.quantity}
+                  </p>
                 </div>
               </div>
             ))}
-          </div>
+          </Link>
         ))}
       </div>
     </Layout>

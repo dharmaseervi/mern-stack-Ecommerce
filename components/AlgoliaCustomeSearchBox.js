@@ -1,6 +1,10 @@
 'use client'
-import React, { useState, useRef, useEffect } from 'react';
-import { useInstantSearch, useSearchBox, PoweredBy, Hits } from 'react-instantsearch';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useInstantSearch, useSearchBox, PoweredBy, Hits, } from 'react-instantsearch';
+import { GlobalContext } from './GlobalContex';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import Link from 'next/link';
 
 export default function CustomSearchBox(props) {
     const { query, refine } = useSearchBox(props);
@@ -8,7 +12,10 @@ export default function CustomSearchBox(props) {
     const [inputValue, setInputValue] = useState(query);
     const inputRef = useRef(null);
     const resultsRef = useRef(null);
-
+    const searchContainerRef = useRef(null);
+    const searchBarRef = useRef(null);
+    const { isSearchOpen, setIsSearchOpen } = useContext(GlobalContext);
+    const [product, setProduct] = useState([])
     const isSearchStalled = status === 'stalled';
 
     function setQuery(newQuery) {
@@ -16,14 +23,58 @@ export default function CustomSearchBox(props) {
         refine(newQuery);
     }
 
+    const toggleSearch = () => {
+        // setIsSearchOpen(!isSearchOpen);
+
+        gsap.fromTo(
+            searchContainerRef.current,
+            { y: '0%', height: '50vh' },
+            { y: '-100%', height: '', duration: 0.5, ease: 'power2.inOut' }
+        );
+        gsap.fromTo(
+            searchBarRef.current,
+            { y: '-0%', height: 0 },
+            { y: '-100%', height: '', duration: 0.3, ease: 'power2.inOut' }
+        );
+
+    };
+
+    useGSAP(() => {
+        gsap.fromTo(
+            '.search-container',
+            { y: '-100%', height: 0 },
+            { y: '0%', height: '50vh', duration: 0.5, ease: 'power2.inOut' }
+        );
+    }, []);
+
+    useGSAP(() => {
+        gsap.fromTo(
+            '.search-bar',
+            { y: '-100%', height: 0 },
+            { y: '0%', height: '', duration: 1, ease: 'power2.inOut' }
+        );
+    }, []);
+    useGSAP(() => {
+        gsap.fromTo(
+            '.product',
+            { y: '-100%', height: 0 },
+            { y: '0%', height: '', duration: 1, ease: 'power2.inOut' }
+        );
+    }, []);
+
     useEffect(() => {
         function handleClickOutside(event) {
-            if (inputRef.current && !inputRef.current.contains(event.target) &&
-                resultsRef.current && !resultsRef.current.contains(event.target)) {
+            if (
+                inputRef.current &&
+                !inputRef.current.contains(event.target) &&
+                resultsRef.current &&
+                !resultsRef.current.contains(event.target) &&
+                !event.target.closest('.search-bar')
+            ) {
+                setIsSearchOpen(false);
                 setInputValue('');
             }
         }
-
         document.body.addEventListener('click', handleClickOutside);
 
         return () => {
@@ -31,72 +82,75 @@ export default function CustomSearchBox(props) {
         };
     }, []);
 
+
     useEffect(() => {
-        function handleKeyDown(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                event.stopPropagation();
-                refine(inputValue);
+        const fetchCategoryData = async () => {
+            try {
+                const response = await fetch(`/api/category?query=${'fashion'}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch category data');
+                }
+                const data = await response.json();
+                // Filter items with the specified subcategory
+                const filteredItems = data.filterData.filter(item => {
+                    return item.subcategory.includes("clothing/lux");
+                });
+                setProduct(filteredItems);
+            } catch (error) {
+                console.error('Error fetching category data:', error);
             }
-        }
-
-        const buttonElement = document.querySelector('.reset-button');
-        buttonElement.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            buttonElement.removeEventListener('keydown', handleKeyDown);
         };
-    }, [inputValue]);
-
+        fetchCategoryData();
+    }, []);
+    console.log(product);
     return (
-        <div className="relative  ">
+        <div ref={searchContainerRef} className='search-container w-full h-[50vh] left-0 top-0 bg-white p-4 absolute z-10'>
             <form
-                className="relative flex gap-2 mb-2 "
-                action=""
-                role="search"
+                ref={searchBarRef}
+                className='w-5/6 mx-auto flex flex-col search-bar '
+                action=''
+                role='search'
                 noValidate
                 onClick={(event) => event.stopPropagation()}
                 onSubmit={(event) => event.preventDefault()}
             >
-                <input
-                    ref={inputRef}
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    placeholder="Search for products"
-                    spellCheck={false}
-                    maxLength={512}
-                    type="search"
-                    value={inputValue}
-                    onChange={(event) => {
-                        setQuery(event.currentTarget.value);
-                    }}
-                    className={`border border-dark-300 text-black rounded-lg px-4 py-2 w-full focus:outline-none focus:border-transparent  mt-1.5 ${inputValue && !isSearchStalled ? 'rounded-b-none border-none' : ''}`}
-                    autoFocus
-                />
-
-                <PoweredBy hidden={inputValue.length} className='w-32 mt-5 absolute inset-y-0 right-0 mr-2' />
-
-                <button
-                    type="reset"
-                    hidden={inputValue.length === 0 || isSearchStalled}
-                    className="text-red-900 px-6 mt-3 rounded absolute inset-y-0 right-0 mr-2 reset-button"
-                >
-                    Reset
-                </button>
-
-                <span
-                    hidden={!isSearchStalled}
-                    className="absolute right-0 top-0 mr-4 mt-2"
-                >
-                    Searching…
-                </span>
+                <div className='flex items-center gap-2 search-bar'>
+                    <input
+                        ref={inputRef}
+                        autoComplete='#autocomplete'
+                        autoCorrect='off'
+                        autoCapitalize='off'
+                        placeholder='Search for products'
+                        spellCheck={false}
+                        maxLength={512}
+                        type='search'
+                        value={inputValue}
+                        onChange={(event) => {
+                            setQuery(event.currentTarget.value);
+                        }}
+                        className={`flex-grow px-6 py-3 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent`}
+                        autoFocus
+                    />
+                    <button onClick={toggleSearch} className='text-center border px-4 py-3 border-red-800 text-red-400 rounded'>
+                        close
+                    </button>
+                </div>
+                <PoweredBy hidden={inputValue.length} className='mt-3 w-24 h-24' />
             </form>
 
+            {inputValue.length === 0 && (
+                <div className='w-5/6 mx-auto grid grid-cols-10 gap-3 product'>
+                    {product.slice(0, 30).map((category) => (
+                        <Link href={'/productoverview/' + category._id} key={category.id} className="w-24 h-24 flex justify-center items-center">
+                            <img src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
+                        </Link>
+                    ))}
+                </div>
+            )}
             <div
                 ref={resultsRef}
-                className={`absolute top-full left-0 right-0 h-96 bg-white p-3 shadow-lg z-20 rounded-b-lg ${!inputValue && !isSearchStalled ? 'hidden' : 'block'}`}
-                style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                className={`w-5/6 mx-auto  bg-transparent `}
+                style={{ maxHeight: 'calc(50vh - 100px)', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 <EmptyQueryBoundary fallback={null}>
                     <Hits hitComponent={props.hit} />

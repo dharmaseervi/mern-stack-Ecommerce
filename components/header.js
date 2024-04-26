@@ -1,172 +1,195 @@
-'use client'
-import { Fragment, useContext, useEffect, useState } from 'react'
-import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { CartContext } from './CartProvider'
-import SearchBar from './SearchBar'
-import ProfileDropDown from './ProfileDropDown'
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import { GlobalContext } from './GlobalContex'
-import CustomSearchBox from './AlgoliaCustomeSearchBox'
-import AlgoliaSearch from './Algolia'
+"use client";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { CartContext } from "./CartProvider";
+import SearchBar from "./SearchBar";
+import ProfileDropDown from "./ProfileDropDown";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { GlobalContext } from "./GlobalContex";
+import CustomSearchBox from "./AlgoliaCustomeSearchBox";
+import AlgoliaSearch from "./Algolia";
+
 
 const navigation = {
   categories: [
     {
-      id: 'women',
-      name: 'Women',
+      id: "women",
+      name: "Women",
       featured: [
         {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+          name: "New Arrivals",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
+          imageAlt:
+            "Models sitting back to back, wearing Basic Tee in black and bone.",
         },
         {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+          name: "Basic Tees",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
+          imageAlt:
+            "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
+          id: "clothing",
+          name: "Clothing",
           items: [
-            { name: 'Tops', href: 'top' },
-            { name: 'Dresses', href: 'dress' },
-            { name: 'Jeans', href: 'jeans' },
-            { name: 'Denim', href: 'denim' },
-            { name: 'Sweaters', href: 'sweaters' },
-            { name: 'T-Shirts', href: 'T-shirt' },
-            { name: 'Jackets', href: 'jackets' },
-            { name: 'Activewear', href: 'activewear' },
-            { name: 'Browse All', href: 'all' },
+            { name: "Tops", href: "top" },
+            { name: "Dresses", href: "dress" },
+            { name: "Jeans", href: "jeans" },
+            { name: "Denim", href: "denim" },
+            { name: "Sweaters", href: "sweater" },
+            { name: "T-Shirts", href: "T-shirt" },
+            { name: "Jackets", href: "jacket" },
+            { name: "browse all", href: "all" },
+
           ],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
+          id: "accessories",
+          name: "Accessories",
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: "Watches", href: "watch" },
+            { name: "Wallets", href: "wallet" },
+            { name: "Bags", href: "bag" },
+            { name: "Sunglasses", href: "sunglass" },
+            { name: "Caps", href: "cap" },
+            { name: "Belts", href: "belt" },
           ],
         },
         {
-          id: 'brands',
-          name: 'Brands',
+          id: "brands",
+          name: "Brands",
           items: [
-            { name: 'Nike', href: '#' },
-            { name: 'Zara', href: '#' },
-            { name: 'H&M', href: '#' },
-            { name: 'Puma', href: '#' },
-            { name: 'Other brands', href: '#' },
+            { name: "Nike", href: "nike" },
+            { name: "Zara", href: "zara" },
+            { name: "H&M", href: "h&m" },
+            { name: "Puma", href: "puma" },
+            { name: "Other brands", href: "#" },
           ],
         },
       ],
     },
     {
-      id: 'men',
-      name: 'Men',
+      id: "men",
+      name: "Men",
       featured: [
         {
-          name: 'New Arrivals',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+          name: "New Arrivals",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
+          imageAlt:
+            "Drawstring top with elastic loop closure and textured interior padding.",
         },
         {
-          name: 'Artwork Tees',
-          href: '#',
-          imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+          name: "Artwork Tees",
+          href: "#",
+          imageSrc:
+            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
           imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
         },
       ],
       sections: [
         {
-          id: 'clothing',
-          name: 'Clothing',
+          id: "clothing",
+          name: "Clothing",
           items: [
-            { name: 'shirts', href: 'shirt' },
-            { name: 'jeans', href: 'jeans' },
-            { name: 'hoodie', href: 'hoodie' },
-            { name: 'T-Shirts', href: 't-shirts' },
-            { name: 'Jackets', href: 'jackets' },
-            { name: 'shoes', href: 'shoe' },
-            { name: 'Browse All', href: 'allmen' },
+            { name: "shirts", href: "shirt" },
+            { name: "jeans", href: "jeans" },
+            { name: "hoodie", href: "hoodie" },
+            { name: "T-Shirts", href: "t-shirts" },
+            { name: "Jackets", href: "jacket" },
+            { name: "shoes", href: "shoe" },
+            { name: "Browse All", href: "allmen" },
           ],
         },
         {
-          id: 'accessories',
-          name: 'Accessories',
+          id: "accessories",
+          name: "Accessories",
           items: [
-            { name: 'Watches', href: '#' },
-            { name: 'Wallets', href: '#' },
-            { name: 'Bags', href: '#' },
-            { name: 'Sunglasses', href: '#' },
-            { name: 'Hats', href: '#' },
-            { name: 'Belts', href: '#' },
+            { name: "Watches", href: "watch" },
+            { name: "Wallets", href: "wallet" },
+            { name: "Bags", href: "bag" },
+            { name: "Sunglasses", href: "sunglass" },
+            { name: "Hats", href: "cap" },
+            { name: "Belts", href: "belt" },
           ],
         },
         {
-          id: 'brands',
-          name: 'Brands',
+          id: "brands",
+          name: "Brands",
           items: [
-            { name: 'Nike', href: '#' },
-            { name: 'Zara', href: '#' },
-            { name: 'H&M', href: '#' },
-            { name: 'Puma', href: '#' },
-            { name: 'Other brands', href: '#' },
+            { name: "Nike", href: "nike" },
+            { name: "Zara", href: "zara" },
+            { name: "H&M", href: "h&m" },
+            { name: "Puma", href: "puma" },
+            { name: "Other brands", href: "#" },
           ],
         },
       ],
     },
   ],
   pages: [
-    { name: 'Mern Lux', href: '/mernlux' },
-    { name: 'Stores', href: '/productlist' },
+    { name: "Mern Lux", href: "/mernlux" },
+    { name: "Stores", href: "/productlist" },
   ],
-}
+};
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Header() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const { cartItems } = useContext(CartContext);
-  const { setGenderSelected } = useContext(GlobalContext)
+  const { setGenderSelected, isSearchOpen, setIsSearchOpen } = useContext(GlobalContext);
   const numberOfProductsInCart = cartItems?.length || 0;
-  const { data: session, } = useSession()
+  const { data: session } = useSession();
   const handleChange = (category) => {
-    setGenderSelected(category)
-  }
-
+    setGenderSelected(category);
+  };
   const [dropdown, setDropdown] = useState(false);
 
-  const handelCick = () => {
-    setDropdown(true)
-    console.log('dropdown', dropdown);
-  }
-  const handleMouseEnter = () => {
-    setDropdown(!dropdown)
-  }
 
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  console.log(isSearchOpen);
+
+
+  const handelCick = () => {
+    setDropdown(true);
+    console.log("dropdown", dropdown);
+  };
+  const handleMouseEnter = () => {
+    setDropdown(!dropdown);
+  };
 
   return (
     <div id="sticky-header" className="sticky top-0 z-50 bg-white">
       <div className="bg-white">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
-          <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+          <Dialog
+            as="div"
+            className="relative z-40 lg:hidden"
+            onClose={setOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -209,10 +232,15 @@ export default function Header() {
                         {navigation.categories.map((category) => (
                           <Tab
                             key={category.name}
+                            onClick={() => {
+                              handleChange(category.name);
+                            }}
                             className={({ selected }) =>
                               classNames(
-                                selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900',
-                                'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'
+                                selected
+                                  ? "border-indigo-600 text-indigo-600"
+                                  : "border-transparent text-gray-900",
+                                "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
                               )
                             }
                           >
@@ -223,15 +251,31 @@ export default function Header() {
                     </div>
                     <Tab.Panels as={Fragment}>
                       {navigation.categories.map((category) => (
-                        <Tab.Panel key={category.name} className="space-y-10 px-4 pb-8 pt-10">
+                        <Tab.Panel
+                          key={category.name}
+                          className="space-y-10 px-4 pb-8 pt-10"
+                        >
                           <div className="grid grid-cols-2 gap-x-4">
                             {category.featured.map((item) => (
-                              <div key={item.name} className="group relative text-sm">
+                              <div
+                                key={item.name}
+                                className="group relative text-sm"
+                              >
                                 <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                  <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                                  <img
+                                    src={item.imageSrc}
+                                    alt={item.imageAlt}
+                                    className="object-cover object-center"
+                                  />
                                 </div>
-                                <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                  <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                <a
+                                  href={item.href}
+                                  className="mt-6 block font-medium text-gray-900"
+                                >
+                                  <span
+                                    className="absolute inset-0 z-10"
+                                    aria-hidden="true"
+                                  />
                                   {item.name}
                                 </a>
                                 <p aria-hidden="true" className="mt-1">
@@ -242,20 +286,25 @@ export default function Header() {
                           </div>
                           {category.sections.map((section) => (
                             <div key={section.name}>
-                              <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
+                              <p
+                                id={`${category.id}-${section.id}-heading-mobile`}
+                                className="font-medium text-gray-900"
+                              >
                                 {section.name}
                               </p>
                               <ul
-                                role="list"
                                 aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                 className="mt-6 flex flex-col space-y-6"
                               >
                                 {section.items.map((item) => (
-                                  <li key={item.name} className="flow-root">
-                                    <a href={item.href} className="-m-2 block p-2 text-gray-500">
-                                      {item.name}
-                                    </a>
-                                  </li>
+                                  <Link
+                                    key={item.name}
+                                    href={`/headernavigation/${item.href}`}
+                                    passHref
+                                    className="hover:text-gray-800"
+                                  >
+                                    {item.name}
+                                  </Link>
                                 ))}
                               </ul>
                             </div>
@@ -268,38 +317,49 @@ export default function Header() {
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                     {navigation.pages.map((page) => (
                       <div key={page.name} className="flow-root">
-                        <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                        <a
+                          href={page.href}
+                          className="-m-2 block p-2 font-medium text-gray-900"
+                        >
                           {page.name}
                         </a>
                       </div>
                     ))}
                   </div>
 
-
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-
                     <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                      <Link
+                        href={"/signin"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
                         Sign in
-                      </a>
+                      </Link>
                     </div>
                     <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                      <Link
+                        href={"/register"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
                         Create account
-                      </a>
+                      </Link>
                     </div>
                   </div>
 
                   <div className="border-t border-gray-200 px-4 py-6">
-                    <a href="#" className="-m-2 flex items-center p-2">
-                      <img
-                        src="https://tailwindui.com/img/flags/flag-canada.svg"
-                        alt=""
-                        className="block h-auto w-5 flex-shrink-0"
-                      />
-                      <span className="ml-3 block text-base font-medium text-gray-900">INR</span>
+                    <div className="flex items-center text-gray-700 hover:text-gray-800">
+                      <div>
+                        <img
+                          src="/flag.png"
+                          alt="home"
+                          className="object-cover w-8 h-6"
+                        />
+                      </div>
+                      <span className="ml-3 block text-sm font-medium">
+                        IND
+                      </span>
                       <span className="sr-only">, change currency</span>
-                    </a>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -309,17 +369,16 @@ export default function Header() {
 
         <header className="relative bg-white">
           <div className="flex h-14 items-center  justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8 ">
-            {/* <div className='flex  w-4/6'>
-              <SearchBar />
-            </div> */}
             {/* Algolia search component */}
             <div className="  h-full w-full">
-              <AlgoliaSearch />
-            </div>
 
+            </div>
           </div>
 
-          <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <nav
+            aria-label="Top"
+            className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          >
             <div className="border-b border-gray-200">
               <div className="flex h-16 items-center">
                 <button
@@ -334,7 +393,7 @@ export default function Header() {
 
                 {/* Logo */}
                 <div className="ml-4 flex lg:ml-0">
-                  <Link href={'/'}>
+                  <Link href={"/"}>
                     <span className="sr-only">Your Company</span>
                     <img
                       className="h-8 w-auto"
@@ -359,9 +418,9 @@ export default function Header() {
                                 }}
                                 className={classNames(
                                   open
-                                    ? 'border-indigo-600 text-indigo-600'
-                                    : 'border-transparent text-gray-700 hover:text-gray-800',
-                                  'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
+                                    ? "border-indigo-600 text-indigo-600"
+                                    : "border-transparent text-gray-700 hover:text-gray-800",
+                                  "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                                 )}
                               >
                                 {category.name}
@@ -380,14 +439,20 @@ export default function Header() {
                               >
                                 <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
                                   {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                                  <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+                                  <div
+                                    className="absolute inset-0 top-1/2 bg-white shadow"
+                                    aria-hidden="true"
+                                  />
 
                                   <div className="relative bg-white">
                                     <div className="mx-auto max-w-7xl px-8">
                                       <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                         <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                           {category.featured.map((item) => (
-                                            <div key={item.name} className="group relative text-base sm:text-sm">
+                                            <div
+                                              key={item.name}
+                                              className="group relative text-base sm:text-sm"
+                                            >
                                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                                 <img
                                                   src={item.imageSrc}
@@ -395,11 +460,20 @@ export default function Header() {
                                                   className="object-cover object-center"
                                                 />
                                               </div>
-                                              <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                              <a
+                                                href={item.href}
+                                                className="mt-6 block font-medium text-gray-900"
+                                              >
+                                                <span
+                                                  className="absolute inset-0 z-10"
+                                                  aria-hidden="true"
+                                                />
                                                 {item.name}
                                               </a>
-                                              <p aria-hidden="true" className="mt-1">
+                                              <p
+                                                aria-hidden="true"
+                                                className="mt-1"
+                                              >
                                                 Shop now
                                               </p>
                                             </div>
@@ -408,17 +482,27 @@ export default function Header() {
                                         <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                           {category.sections.map((section) => (
                                             <div key={section.name}>
-                                              <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                              <p
+                                                id={`${section.name}-heading`}
+                                                className="font-medium text-gray-900"
+                                              >
                                                 {section.name}
                                               </p>
                                               <ul
-                                                role="list"
                                                 aria-labelledby={`${section.name}-heading`}
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
                                                 {section.items.map((item) => (
-                                                  <li key={item.name} className="flex">
-                                                    <Link href={`/headernavigation/${item.href}`} passHref className="hover:text-gray-800" onClick={handleMouseEnter}>
+                                                  <li
+                                                    key={item.name}
+                                                    className="flex"
+                                                  >
+                                                    <Link
+                                                      href={`/headernavigation/${item.href}`}
+                                                      passHref
+                                                      className="hover:text-gray-800"
+                                                      onClick={handleMouseEnter}
+                                                    >
                                                       {item.name}
                                                     </Link>
                                                   </li>
@@ -431,8 +515,8 @@ export default function Header() {
                                     </div>
                                   </div>
                                 </Popover.Panel>
-                              </Transition>)
-                            }
+                              </Transition>
+                            )}
                           </>
                         )}
                       </Popover>
@@ -451,44 +535,55 @@ export default function Header() {
                 </Popover.Group>
 
 
-
-                {/* Sign in */}
                 <div className="ml-auto flex items-center">
-
-
                   {/* Currency */}
-                  <div className="hidden lg:ml-8 lg:flex">
-                    <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                      <div>
-                      <img src="/flag.png" alt="home"  className='object-cover w-12 h-8' />
-                      </div>
-                      <span className="ml-3 block text-sm font-medium">IND</span>
-                      <span className="sr-only">, change currency</span>
-                    </a>
+
+                  <div className='flex gap-2' onClick={toggleSearch}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                    <p className='text-md font-medium cursor-pointer' >search</p>
+                  </div>
+                  <div className='' >
+                    {isSearchOpen && <AlgoliaSearch />}
                   </div>
 
                   {/* Cart */}
                   <div className="ml-4  flow-root lg:ml-6">
-                    <Link href={'/cart'} className="group -m-2 flex items-center p-2" >
+                    <Link
+                      href={"/cart"}
+                      className="group -m-2 flex items-center p-2"
+                    >
                       <ShoppingBagIcon
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{numberOfProductsInCart}</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {numberOfProductsInCart}
+                      </span>
                       <span className="sr-only">items in cart, view bag</span>
                     </Link>
                   </div>
-
+                  {/* Sign in */}
                   <div className="ml-4  flow-root lg:ml-6">
                     {session ? (
                       <ProfileDropDown />
                     ) : (
                       <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                        <Link href={'/signin'} className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <Link
+                          href={"/signin"}
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
                           Sign in
                         </Link>
-                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                        <Link href={'/register'} className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <span
+                          className="h-6 w-px bg-gray-200"
+                          aria-hidden="true"
+                        />
+                        <Link
+                          href={"/register"}
+                          className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                        >
                           Create account
                         </Link>
                       </div>
@@ -498,8 +593,8 @@ export default function Header() {
               </div>
             </div>
           </nav>
-        </header >
-      </div >
-    </div >
-  )
+        </header>
+      </div>
+    </div>
+  );
 }

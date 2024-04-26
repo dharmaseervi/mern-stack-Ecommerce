@@ -28,7 +28,7 @@ const LuxFP = () => {
     return (
         <section className="rounded m-6 bg-slate-100  p-6 ">
             <h2 className="text-3xl font-bold text-center mb-8">Featured Products</h2>
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3  grid-cols-1 gap-8 border">
                 {products.slice(1, 4).map((product) => (
                     <div key={product.id} className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:translate-y-3 ">
                         <Link href={`/product/${product._id}`}>

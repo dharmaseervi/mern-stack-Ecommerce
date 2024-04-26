@@ -4,6 +4,7 @@ import algoliasearch from "algoliasearch/lite";
 import { InstantSearch, Hits, useInstantSearch } from "react-instantsearch";
 import CustomSearchBox from "./AlgoliaCustomeSearchBox";
 import Link from "next/link";
+import { InstantSearchNext } from 'react-instantsearch-nextjs';
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
@@ -35,9 +36,9 @@ export default function AlgoliaSearch() {
   const [searchListVisible, setSearchListVisible] = useState(true);
   return (
     <div className="lg:w-4/6 mx-auto ">
-      <InstantSearch searchClient={AlgoliasearchClient} indexName="mern store">
+      <InstantSearchNext searchClient={AlgoliasearchClient} indexName="mern store">
         {searchListVisible && <CustomSearchBox hit={Hit} />}
-      </InstantSearch>
+      </InstantSearchNext>
     </div>
   );
 }

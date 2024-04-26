@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.17.0",
+    "@algolia/autocomplete-plugin-recent-searches": "^1.17.0",
     "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
@@ -36,6 +38,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.0",
     "react-instantsearch": "^7.7.0",
+    "react-instantsearch-nextjs": "^0.2.1",
     "react-paginate": "^8.2.0",
     "react-query": "^3.39.3",
     "react-spinners": "^0.13.8",

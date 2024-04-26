@@ -79,9 +79,9 @@ const Footer = () => {
             <p className="text-gray-400">Telephone: 1800 208 9898</p>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 ">
             <h1 className='text-gray-600 text-lg font-medium mb-2'>payment accepted</h1>
-            <div className="flex space-x-4">
+            <div className="grid grid-cols-3 lg:grid-cols-6  gap-3">
               <img src="/mastercard.svg" alt="mastercard" />
               <img src="/visa.svg" alt="visa" />
               <img src="/paypal.svg" alt="paypal" />

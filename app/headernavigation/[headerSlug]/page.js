@@ -19,12 +19,12 @@ const subCategories = {
     fashion: [
         { name: 'Clothing', href: 'clothing' },
         { name: 'Shoes', href: 'shoe' },
-        { name: 'Accessories', href: '#' },
-        { name: 'Watches', href: 'watche' },
-        { name: 'Bags', href: 'bags' },
-        { name: 'Jewelry', href: 'jewelery' },
+        { name: 'Accessories', href: 'accessories' },
+        { name: 'Watches', href: 'watch' },
+        { name: 'Bags', href: 'bag' },
+        { name: 'Jewelry', href: 'jewelry' },
         { name: 'Sunglasses', href: 'sunglasses' },
-        { name: 'Perfumes', href: 'perfumes' },
+        { name: 'Perfumes', href: 'perfum' },
 
     ],
 };
@@ -79,7 +79,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function page({ params }) {
+export default function Page({ params }) {
     const { headerSlug } = params;
     const [categoryData, setCategoryData] = useState(null);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
@@ -93,7 +93,7 @@ export default function page({ params }) {
     const { genderSelected } = useContext(GlobalContext);
     console.log(genderSelected, 'selectedGender');
 
-
+    console.log(headerSlug);
     const handleChange = (value, id, checked) => {
         setSelectedFilters(prevFilters => {
             const updatedFilters = { ...prevFilters };
@@ -138,18 +138,24 @@ export default function page({ params }) {
 
     useEffect(() => {
 
-
         if (genderSelected === 'Women') {
             setSelectedFilters(prevFilters => ({
                 ...prevFilters,
                 gender: ['women'], // Set gender filter to women when category is women
             }));
-        } else {
+        } else if (genderSelected === 'Men') {
             setSelectedFilters(prevFilters => ({
                 ...prevFilters,
                 gender: ['men'],
             }));
+        } else {
+            // Show both genders
+            setSelectedFilters(prevFilters => ({
+                ...prevFilters,
+                gender: ['women', 'men'],
+            }));
         }
+
 
         let filteredData = originalCategoryData;
 
@@ -157,31 +163,27 @@ export default function page({ params }) {
         if (selectedSubcategory) {
             filteredData = filteredData?.filter(product => product.subcategory.includes(selectedSubcategory));
         }
+        console.log(selectedSubcategory, 'subcat');
 
 
-
-        if (headerSlug === 'all') {
+        if (headerSlug && headerSlug !== 'all' && headerSlug !== 'allmen') {
+            const lowercaseHeaderSlug = headerSlug.toLowerCase().trim();
             filteredData = filteredData?.filter(product => {
-                const subcategoryParts = product.subcategory.split('/');
-                return subcategoryParts.includes('women')
+                const productNameLowerCase = product.productbrand.toLowerCase().trim();
+                return productNameLowerCase;
             });
         }
-        if (headerSlug === 'allmen') {
-            filteredData = filteredData?.filter(product => {
-                const subcategoryParts = product.subcategory.split('/');
-                console.log(subcategoryParts, 'subcategoryParts');
-                return subcategoryParts.includes('men')
-            });
-        }
+
 
         // Apply search filter
         if (headerSlug) {
             const lowercaseHeaderSlug = headerSlug.toLowerCase().trim();
             filteredData = filteredData?.filter(product => {
-                const productNameLowerCase = product.productname.toLowerCase().trim(); // Ensure lowercase and trim whitespace
-                return productNameLowerCase.includes(lowercaseHeaderSlug); // Compare lowercase strings
+                const productNameLowerCase = product.productname.toLowerCase().trim();
+                return productNameLowerCase.includes(lowercaseHeaderSlug);
             });
         }
+
 
         // Apply gender filter
         if (selectedFilters.gender.length > 0) {
@@ -210,9 +212,10 @@ export default function page({ params }) {
         }
 
         setCategoryData(filteredData);
-    }, [selectedSubcategory, originalCategoryData]);
+    }, [selectedSubcategory, originalCategoryData, headerSlug]);
 
     console.log(categoryData, 'categoryData');
+    console.log(headerSlug, 'slug');
     return (
 
         <div className="bg-white">
