@@ -1,6 +1,6 @@
-{
-    "redirects": [
-      { "source": "/", "destination": "/useraccount", "permanent": false }
-    ]
-  }
+// {
+//     "redirects": [
+//       { "source": "/", "destination": "/useraccount", "permanent": false }
+//     ]
+//   }
   
