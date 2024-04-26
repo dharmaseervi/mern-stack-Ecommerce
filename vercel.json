@@ -1,5 +1,0 @@
-{
-    "redirects": [
-      { "source": "/useraccount", "destination": "/useraccount", "permanent": true }
-    ]
-  }

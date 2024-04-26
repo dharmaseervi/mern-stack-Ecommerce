@@ -36,17 +36,19 @@ export default function ProfileDropDown() {
                     <div className="py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <Link
-                                    href={'/useraccount'}
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    Account
+                                <Link href="/useraccount"> {/* Use proper href for navigation */}
+                                    <a
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Account
+                                    </a>
                                 </Link>
                             )}
                         </Menu.Item>
+
                         <Menu.Item>
                             {({ active }) => (
                                 <Link
