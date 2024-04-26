@@ -1,8 +1,5 @@
 {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
+    "redirects": [
+      { "source": "/useraccount", "destination": "/useraccount/page.js", "permanent": true }
     ]
   }
