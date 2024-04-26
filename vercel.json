@@ -1,5 +1,6 @@
 {
     "redirects": [
-      { "source": "/useraccount", "dest": "/useraccount", "permanent": false }
+      { "source": "/useraccount", "destination": "/useraccount/page.js", "permanent": false }
     ]
   }
+  
