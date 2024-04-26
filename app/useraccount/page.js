@@ -1,6 +1,6 @@
 import React from 'react'
 import SideNavbar from '@/components/SideNavbar'
-import UserAccountDashboard from '../../components/home/UserAccountDashboard'
+import UserAccountDashboard from './UserAccountDashboard'
 
 export default function Layout({ children }) {
     return (
