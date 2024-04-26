@@ -36,7 +36,7 @@ export default function ProfileDropDown() {
                     <div className="py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <Link href="/useraccount"> {/* Use proper href for navigation */}
+                                <Link href="/useraccount"> 
                                     <a
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
