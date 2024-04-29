@@ -372,7 +372,7 @@ export default function Header() {
                     </div>
                     <div className="flow-root">
                       <Link
-                        href={"/register"}
+                        href={"/singup"}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         Create account

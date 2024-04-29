@@ -56,7 +56,7 @@ export default function ProfileDropDown() {
                         <Menu.Item>
                             {({ active }) => (
                                 <Link
-                                    href="/order"
+                                    href="/userorder"
                                     className={classNames(
                                         active ? ' text-gray-900' : 'text-gray-700',
                                         'block px-4 py-1 text-sm'
@@ -75,7 +75,7 @@ export default function ProfileDropDown() {
                         <Menu.Item>
                             {({ active }) => (
                                 <Link
-                                    href={'/register/' + userid}
+                                    href={'/singup/' + userid}
                                     className={classNames(
                                         active ? 'text-gray-900' : 'text-gray-700',
                                         'block px-4 py-1 text-sm'
