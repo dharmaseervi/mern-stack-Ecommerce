@@ -11,7 +11,7 @@ export default function UserAccountDashboard() {
         <div className='container mx-auto '>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
                 {/* User Profile */}
-                <Link href={'/register/' + userId} className='bg-gray-100 rounded-lg shadow-md p-8 text-center flex flex-col justify-center'>
+                <Link href={'/singup/' + userId} className='bg-gray-100 rounded-lg shadow-md p-8 text-center flex flex-col justify-center'>
                     <img className='w-24 h-34 mx-auto rounded-full mb-4' src={session?.user?.image || '/user.png'} alt="User Avatar" />
                     <h1 className='text-2xl font-bold text-gray-800'>{session?.user?.name}</h1>
                     <p className='text-lg font-medium text-gray-600'>{session?.user?.email}</p>
