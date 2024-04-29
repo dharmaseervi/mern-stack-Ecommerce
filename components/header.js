@@ -605,7 +605,7 @@ export default function Header() {
                     ) : (
                       <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                         <Link
-                          href={"/signin"}
+                          href="/signin"
                           className="text-sm font-medium text-gray-700 hover:text-gray-800"
                         >
                           Sign in
@@ -615,7 +615,7 @@ export default function Header() {
                           aria-hidden="true"
                         />
                         <Link
-                          href={"/register"}
+                          href="/register"
                           className="text-sm font-medium text-gray-700 hover:text-gray-800"
                         >
                           Create account

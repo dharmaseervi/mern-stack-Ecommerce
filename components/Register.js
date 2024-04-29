@@ -146,7 +146,7 @@ export default function Register() {
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have a acc ?{" "}
           <Link
-            href={"/signin"}
+            href="/signin"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Sign in
