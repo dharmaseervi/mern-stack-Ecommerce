@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Layout from "../useraccounts/page";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Layout from "../useraccounts/layout";
 
 export default function Page() {
   const [orderDetails, setOrderDetails] = useState([]);

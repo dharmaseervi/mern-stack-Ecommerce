@@ -1,5 +1,5 @@
 'use client'
-import Layout from '@/app/useraccounts/page';
+import Layout from '@/app/useraccounts/layout';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -100,7 +100,7 @@ export default function Page({ params }) {
     };
 
     return (
-        <Layout >
+        <Layout>
             <div className='w-full h-full  shadow-md rounded-md flex  '>
                 <div className="w-full mx-20 mt-8">
                     <form className="space-y-6" onSubmit={handleSubmit} >

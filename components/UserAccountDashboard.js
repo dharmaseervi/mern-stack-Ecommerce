@@ -18,7 +18,7 @@ export default function UserAccountDashboard() {
                 </Link>
 
                 {/* Shopping Section */}
-                <Link href='/order' className='bg-gray-100 rounded-lg shadow-md p-8 text-center'>
+                <Link href={'/order'} className='bg-gray-100 rounded-lg shadow-md p-8 text-center'>
                     <img className='w-24 h-24 mx-auto mb-4' src='/shopping.png' alt="Shopping Icon" />
                     <h2 className='text-lg font-bold text-gray-800 mb-2'>My Orders</h2>
                     <p className='text-gray-600'>View and track your orders</p>
@@ -32,7 +32,7 @@ export default function UserAccountDashboard() {
                 </div>
 
                 {/* Shipping Section */}
-                <Link href='/address' className='bg-gray-100 rounded-lg shadow-md p-8 text-center'>
+                <Link href={'/address'} className='bg-gray-100 rounded-lg shadow-md p-8 text-center'>
                     <img className='w-24 h-24 mx-auto mb-4' src='/truck-moving.png' alt="Shipping Icon" />
                     <h2 className='text-lg font-bold text-gray-800 mb-2'>Shipping Information</h2>
                     <p className='text-gray-600'>Update your shipping address</p>
