@@ -7,13 +7,13 @@ export async function middleware(request) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  const privatePaths = ["/useraccount", "/order", "/address", "/register"]; // Add your private paths here
+  const privatePaths = ["/useraccounts", "/userorder", "/savedaddress", "/sign-up"]; // Add your private paths here
 
   if (!token && privatePaths.includes(path)) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
   // Check if the path starts with '/register/'
-  if (!token && request.nextUrl.pathname.startsWith("/register/")) {
+  if (!token && request.nextUrl.pathname.startsWith("/sign-up/")) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 }
