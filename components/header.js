@@ -614,12 +614,12 @@ export default function Header() {
                           className="h-6 w-px bg-gray-200"
                           aria-hidden="true"
                         />
-                        <Link
+                        <a
                           href="/register"
                           className="text-sm font-medium text-gray-700 hover:text-gray-800"
                         >
                           Create account
-                        </Link>
+                        </a>
                       </div>
                     )}
                   </div>
