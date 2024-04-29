@@ -13,6 +13,7 @@ function classNames(...classes) {
 export default function ProfileDropDown() {
 
     const { data: session } = useSession()
+    const userid = session?.user?._id;
 
     return (
         <Menu as="div" className="relative inline-block text-left">
@@ -50,7 +51,7 @@ export default function ProfileDropDown() {
                         <Menu.Item>
                             {({ active }) => (
                                 <Link
-                                    href=""
+                                    href="/order"
                                     className={classNames(
                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                         'block px-4 py-2 text-sm'
@@ -63,7 +64,7 @@ export default function ProfileDropDown() {
                         <Menu.Item>
                             {({ active }) => (
                                 <Link
-                                    href=""
+                                    href={'/register/' + userid}
                                     className={classNames(
                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                         'block px-4 py-2 text-sm'
