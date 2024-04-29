@@ -7,8 +7,6 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
 
-
-
 export default function FeaturedProduct() {
 
     const { data: session } = useSession();
@@ -18,20 +16,26 @@ export default function FeaturedProduct() {
     const { addToCart, setProductOverviewId, increaseQuantity, decreaseQuantity, } = useContext(CartContext);
 
     const productFetch = async () => {
-        const data = await getProduct();
-        const response = JSON.parse(data);
-        setProduct(response);
-        setIsLoaded(false);
-
-    }
+        try {
+            const res = await fetch('/api/newarrival/');
+            if (!res.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await res.json();
+            setProduct(data.allNewArrivals); 
+            setIsLoaded(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
     useEffect(() => {
         productFetch();
-    }, [])
-
+    }, []);
+    
 
     const handleClick = (item) => {
         const id = item._id;
-        setProductOverviewId(id);
     }
 
     return (

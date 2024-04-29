@@ -164,13 +164,47 @@ export default function Header() {
   };
   const [dropdown, setDropdown] = useState(false);
 
+  const productFetch = async () => {
+    try {
+      const res = await fetch('/api/newarrival/');
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await res.json();
+      const updatedNavigation = { ...navigation };
+      updatedNavigation.categories.forEach((category) => {
+        if (category.name === "Men") {
+          category.featured[0].name = data.fashionNewArrivalsMen[0]?.productname;
+          category.featured[0].href = '/productoverview/' + data.fashionNewArrivalsMen[0]?._id;
+          category.featured[0].imageSrc = data.fashionNewArrivalsMen[0]?.photo[0]; // Assuming photo is an array
+          category.featured[0].imageAlt = "New Arrivals";
+          category.featured[1].name = data.fashionNewArrivalsMen[1]?.productname;
+          category.featured[1].href = '/productoverview/' + data.fashionNewArrivalsMen[1]?._id;
+          category.featured[1].imageSrc = data.fashionNewArrivalsMen[1]?.photo[0]; // Assuming photo is an array
+          category.featured[1].imageAlt = "New Arrivals";
+        } else if (category.name === "Women") {
+          category.featured[0].name = data.fashionNewArrivalsWomen[0]?.productname;
+          category.featured[0].href = '/productoverview/' + data.fashionNewArrivalsWomen[0]?._id;
+          category.featured[0].imageSrc = data.fashionNewArrivalsWomen[0]?.photo[0]; // Assuming photo is an array
+          category.featured[0].imageAlt = "New Arrivals";
+          category.featured[1].name = data.fashionNewArrivalsWomen[1]?.productname;
+          category.featured[1].href = '/productoverview/' + data.fashionNewArrivalsWomen[1]?._id;
+          category.featured[1].imageSrc = data.fashionNewArrivalsWomen[1]?.photo[0]; // Assuming photo is an array
+          category.featured[1].imageAlt = "New Arrivals";
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    productFetch();
+  }, []);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-
-  console.log(isSearchOpen);
-
 
   const handelCick = () => {
     setDropdown(true);

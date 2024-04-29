@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import RazorpayButton from './Razorpay';
 import Spinner from './Spinner';
+import EmptyCart from './EmptyCart';
 
 
 
@@ -35,7 +36,7 @@ const CartPage = ({ path }) => {
         fetchLatestOrder();
     }, []);
 
-  
+
     const handleOrder = async () => {
         try {
             const res = await fetch('/api/order', {
@@ -73,6 +74,15 @@ const CartPage = ({ path }) => {
         }
     };
 
+
+
+    if (cartItems.length === 0) {
+        return (
+            <div className="container mx-auto py-8 px-8 text-center">
+                <EmptyCart />
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto py-8 sm:flex-col sm:flex  px-8">

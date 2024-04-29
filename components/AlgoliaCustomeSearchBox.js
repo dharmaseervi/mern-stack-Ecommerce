@@ -104,7 +104,7 @@ export default function CustomSearchBox(props) {
     }, []);
     console.log(product);
     return (
-        <div ref={searchContainerRef} className='search-container w-full h-[50vh] left-0 top-0 bg-white p-4 absolute z-10'>
+        <div ref={searchContainerRef} className='search-container w-full  h-full xl:h-[70vh] left-0 top-0 bg-white p-4 absolute z-10'>
             <form
                 ref={searchBarRef}
                 className='w-5/6 mx-auto flex flex-col search-bar '
@@ -139,14 +139,15 @@ export default function CustomSearchBox(props) {
             </form>
 
             {inputValue.length === 0 && (
-                <div className='w-5/6 mx-auto grid grid-cols-10 gap-3 product'>
-                    {product.slice(0, 30).map((category) => (
-                        <Link href={'/productoverview/' + category._id} key={category.id} className="w-24 h-24 flex justify-center items-center">
+                <div className='w-5/6 mx-auto grid xl:grid-cols-5 grid-cols-5  gap-3 product'>
+                    {product.slice(0, 10).map((category) => (
+                        <Link href={'/productoverview/' + category._id} key={category.id} className="lg:w-24 lg:h-24 w-16 h-16 flex justify-center items-center">
                             <img src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
                         </Link>
                     ))}
                 </div>
             )}
+
             <div
                 ref={resultsRef}
                 className={`w-5/6 mx-auto  bg-transparent `}

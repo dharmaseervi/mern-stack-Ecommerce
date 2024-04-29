@@ -102,7 +102,7 @@ export default function Page({ params }) {
     return (
         <Layout>
             <div className='w-full h-full  shadow-md rounded-md flex  '>
-                <div className="w-full mx-20 mt-8">
+                <div className="w-full px-6 mt-8">
                     <form className="space-y-6" onSubmit={handleSubmit} >
                         {isPasswordChange ?
                             <div>
