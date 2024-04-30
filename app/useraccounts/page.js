@@ -1,5 +1,5 @@
-import React from 'react'
-import UserAccountDashboard from '@/components/UserAccountDashboard'
+'use cleint'
+import UserAccountDashboard from '../../components/UserAccountDashboard'
 
 export default function Layout() {
     return (
