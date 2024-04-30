@@ -85,7 +85,7 @@ const CartPage = ({ path }) => {
     }
 
     return (
-        <div className="container mx-auto py-8 sm:flex-col sm:flex  px-8">
+        <div className="container mx-auto py-8 sm:flex-col sm:flex  xl:px-8 lg:px-8">
             {isLoading ? (
                 <Spinner />
             ) : (
@@ -96,7 +96,7 @@ const CartPage = ({ path }) => {
                             <div className="flex items-center">
                                 <img src={cartItem?.product?.photo?.[0]} alt={cartItem?.product?.productname} className="w-20 h-20 object-cover mr-4" />
                                 <div>
-                                    <h2 className="text-lg font-semibold">{cartItem?.product?.productname}</h2>
+                                    <h2 className="xl:text-lg sm:text-sm font-semibold">{cartItem?.product?.productname}</h2>
                                     <p className="text-gray-600">Size: {cartItem?.product?.variants?.[1]?.value}</p>
                                     <p className="text-gray-600">Color: {cartItem?.product?.variants?.[0]?.value}</p>
                                 </div>
@@ -148,3 +148,4 @@ const CartPage = ({ path }) => {
 };
 
 export default CartPage;
+

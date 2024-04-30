@@ -24,11 +24,9 @@ export default function CustomSearchBox(props) {
     }
 
     const toggleSearch = () => {
-        // setIsSearchOpen(!isSearchOpen);
-
         gsap.fromTo(
             searchContainerRef.current,
-            { y: '0%', height: '50vh' },
+            { y: '0%', height: '' },
             { y: '-100%', height: '', duration: 0.5, ease: 'power2.inOut' }
         );
         gsap.fromTo(
@@ -36,14 +34,14 @@ export default function CustomSearchBox(props) {
             { y: '-0%', height: 0 },
             { y: '-100%', height: '', duration: 0.3, ease: 'power2.inOut' }
         );
-
     };
+
 
     useGSAP(() => {
         gsap.fromTo(
             '.search-container',
             { y: '-100%', height: 0 },
-            { y: '0%', height: '50vh', duration: 0.5, ease: 'power2.inOut' }
+            { y: '0%', height: '', duration: 0.5, ease: 'power2.inOut' }
         );
     }, []);
 
@@ -83,28 +81,8 @@ export default function CustomSearchBox(props) {
     }, []);
 
 
-    useEffect(() => {
-        const fetchCategoryData = async () => {
-            try {
-                const response = await fetch(`/api/category?query=${'fashion'}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch category data');
-                }
-                const data = await response.json();
-                // Filter items with the specified subcategory
-                const filteredItems = data.filterData.filter(item => {
-                    return item.subcategory.includes("clothing/lux");
-                });
-                setProduct(filteredItems);
-            } catch (error) {
-                console.error('Error fetching category data:', error);
-            }
-        };
-        fetchCategoryData();
-    }, []);
-    console.log(product);
     return (
-        <div ref={searchContainerRef} className='search-container w-full  h-full xl:h-[70vh] left-0 top-0 bg-white p-4 absolute z-10'>
+        <div ref={searchContainerRef} className={`search-container w-full   ${inputValue.length ? "xl:h[50vh]" : 'xl:h-[30vh]'}  left-0 top-0 bg-white p-4 absolute z-10`}>
             <form
                 ref={searchBarRef}
                 className='w-5/6 mx-auto flex flex-col search-bar '
@@ -137,17 +115,6 @@ export default function CustomSearchBox(props) {
                 </div>
                 <PoweredBy hidden={inputValue.length} className='mt-3 w-24 h-24' />
             </form>
-
-            {inputValue.length === 0 && (
-                <div className='w-5/6 mx-auto grid xl:grid-cols-5 grid-cols-5  gap-3 product'>
-                    {product.slice(0, 10).map((category) => (
-                        <Link href={'/productoverview/' + category._id} key={category.id} className="lg:w-24 lg:h-24 w-16 h-16 flex justify-center items-center">
-                            <img src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
-                        </Link>
-                    ))}
-                </div>
-            )}
-
             <div
                 ref={resultsRef}
                 className={`w-5/6 mx-auto  bg-transparent `}

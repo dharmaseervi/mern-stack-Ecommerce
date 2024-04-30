@@ -213,6 +213,7 @@ export default function Header() {
   const handleMouseEnter = () => {
     setDropdown(!dropdown);
   };
+  
 
   return (
     <div id="sticky-header" className="sticky top-0 z-50 bg-white">
@@ -247,7 +248,7 @@ export default function Header() {
                 leaveTo="-translate-x-full"
               >
                 <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                  <div className="flex px-4 pb-2 pt-5">
+                  <div className="flex px-4 pb-2 pt-10">
                     <button
                       type="button"
                       className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
@@ -260,7 +261,7 @@ export default function Header() {
                   </div>
 
                   {/* Links */}
-                  <Tab.Group as="div" className="mt-2">
+                  <Tab.Group as="div" className="mt-10">
                     <div className="border-b border-gray-200">
                       <Tab.List className="-mb-px flex space-x-8 px-4">
                         {navigation.categories.map((category) => (
@@ -402,12 +403,9 @@ export default function Header() {
         </Transition.Root>
 
         <header className="relative bg-white">
-          <div className="flex h-14 items-center  justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8 ">
-            {/* Algolia search component */}
-            <div className="  h-full w-full">
-
-            </div>
-          </div>
+          <p className="flex h-14 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+            {/* Get free delivery on orders over 1,000 */}
+          </p>
 
           <nav
             aria-label="Top"
@@ -628,7 +626,7 @@ export default function Header() {
             </div>
           </nav>
         </header>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
