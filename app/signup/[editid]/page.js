@@ -1,5 +1,5 @@
 'use client'
-import Layout from '@/app/useraccounts/layout';
+import Layout from '../../useraccounts/layout'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 

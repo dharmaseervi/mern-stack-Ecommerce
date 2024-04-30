@@ -372,7 +372,7 @@ export default function Header() {
                     </div>
                     <div className="flow-root">
                       <Link
-                        href={"/sign-up"}
+                        href={"/signup"}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         Create account
@@ -615,7 +615,7 @@ export default function Header() {
                           aria-hidden="true"
                         />
                         <Link
-                          href='/sign-up'
+                          href='/signup'
                           className="text-sm font-medium text-gray-700 hover:text-gray-800"
                         >
                           Create account
