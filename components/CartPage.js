@@ -85,65 +85,101 @@ const CartPage = ({ path }) => {
     }
 
     return (
-        <div className="container mx-auto py-8 sm:flex-col sm:flex  xl:px-8 lg:px-8">
+        <div className="xl:container xl:mx-auto mx-auto lg:mx-2  py-8 sm:flex-col sm:flex  xl:px-8 lg:px-8 ">
             {isLoading ? (
                 <Spinner />
             ) : (
                 <>
-                    <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
-                    {cartItems?.map((cartItem, index) => (
-                        <div key={index} className="flex items-center justify-between bg-white p-4 rounded shadow mb-4">
-                            <div className="flex items-center">
-                                <img src={cartItem?.product?.photo?.[0]} alt={cartItem?.product?.productname} className="w-20 h-20 object-cover mr-4" />
+                    <h1 className="text-2xl font-bold mb-4 ml-10 lg:ml-10">Your Cart</h1>
+                    <div className={`${path === '/shippinginfo' ? 'lg:grid lg:grid-cols-2' : 'grid lg:grid-cols-3 xl:grid-cols-3  '}`}>
+                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full p-2 ' : 'mx-2  lg:col-span-2 xl:col-span-2 p-2 '}`} >
+                            {cartItems?.map((cartItem, index) => (
                                 <div>
-                                    <h2 className="xl:text-lg sm:text-sm font-semibold">{cartItem?.product?.productname}</h2>
-                                    <p className="text-gray-600">Size: {cartItem?.product?.variants?.[1]?.value}</p>
-                                    <p className="text-gray-600">Color: {cartItem?.product?.variants?.[0]?.value}</p>
-                                </div>
-                            </div>
-                            <div className="flex flex-col items-end">
-                                <div className="flex items-center mb-2 border">
-                                    <button onClick={() => decreaseQuantity(cartItem?.product?._id)} className="bg-gray-200 text-gray-600 px-3 py-1 hover:bg-gray-300 mr-2">-</button>
-                                    <span>{cartItem?.quantity}</span>
-                                    <button onClick={() => increaseQuantity(cartItem?.product?._id)} className="bg-gray-200 text-gray-600 px-3 py-1 hover:bg-gray-300 ml-2">+</button>
-                                </div>
-                                <p className="text-gray-600 mb-2">₹{parseFloat(cartItem?.price).toLocaleString()}</p>
-                                <button onClick={() => removeItem(cartItem?.product?._id)} className="text-red-500 hover:text-red-700 px-3 py-1 rounded border border-red-500 hover:border-red-700">Remove</button>
-                            </div>
-                        </div>
-                    ))}
+                                    <div className='border border-slate-200 my-5'></div>
+                                    <div key={index} className="flex items-start justify-between p-4 rounded  mb-4 ">
+                                        <div className="flex ">
+                                            <img src={cartItem?.product?.photo?.[0]} alt={cartItem?.product?.productname} className="xl:w-36 xl:h-36 w-20 h-20 object-cover mr-4 rounded-md" />
+                                            <div >
+                                                <h2 className="mb-1">{cartItem?.product?.productname}</h2>
+                                                <p className="text-gray-500 mb-1">Size: {cartItem?.product?.variants?.[1]?.value}</p>
+                                                <p className="text-gray-500 mb-1">Color: {cartItem?.product?.variants?.[0]?.value}</p>
+                                                <p className="text-gray-500 mb-2">Price: ₹{parseFloat(cartItem?.price).toLocaleString()}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex items-center  border">
+                                                <button onClick={() => decreaseQuantity(cartItem?.product?._id)} className="bg-gray-200 text-gray-600 px-3 py-1 hover:bg-gray-300 mr-2">-</button>
+                                                <span>{cartItem?.quantity}</span>
+                                                <button onClick={() => increaseQuantity(cartItem?.product?._id)} className="bg-gray-200 text-gray-600 px-3 py-1 hover:bg-gray-300 ml-2">+</button>
+                                            </div>
+                                            <button onClick={() => removeItem(cartItem?.product?._id)} className="text-red-500 border border-red-700 hover:text-red-700 px-3 py-1 rounded   hover:border-red-700">Remove</button>
+                                        </div>
 
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center">
-                            <p className="text-lg font-semibold mr-4">Total Items:</p>
-                            <p className="text-gray-700">{cartItems?.length}</p>
+                                    </div>
+
+                                </div>
+
+                            ))}
+                            <div className='border border-gray-200 my-5'></div>
                         </div>
-                        <div className="flex items-center">
-                            <p className="text-lg font-semibold mr-4">Total Price:</p>
-                            <p className="text-gray-700">₹{cartItems?.reduce((acc, item) => acc + parseFloat(item.price * item.quantity), 0).toLocaleString()}</p>
+                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full bg-slate-100 p-10 mx-4 rounded-md  ' : 'lg:col-span-1 xl:col-span-1  px-10 mx-4 py-6 bg-gray-100 rounded-md  '}`}>
+                            <h1 className='mb-5 text-xl'>order summary</h1>
+                            <div className="mb-6">
+                                <div className='flex justify-between'>
+                                    <p className="text-sm text-gray-500">Amount</p>
+                                    <p className="text-sm text-gray-500">₹{parseFloat((amount / 1.18).toFixed(2)).toLocaleString()}</p>
+                                </div>
+                                <div className='border  border-slate-200 my-3'></div>
+                                <div className='flex justify-between'>
+                                    <p className="text-sm text-gray-500">SGST</p>
+                                    <p className="text-sm text-gray-500">₹{parseFloat(((amount / 1.18) * 0.09).toFixed(2)).toLocaleString()}</p>
+                                </div>
+                                <div className='border border-slate-200 my-3'></div>
+                                <div className='flex justify-between'>
+                                    <p className="text-sm text-gray-500">CGST</p>
+                                    <p className="text-sm text-gray-500">₹{parseFloat(((amount / 1.18) * 0.09).toFixed(2)).toLocaleString()}</p>
+                                </div>
+                                <div className='border border-slate-200 my-3'></div>
+                                <div className='flex justify-between'>
+                                    <p className="text-sm text-gray-500">Shipping</p>
+                                    <p className="text-sm text-gray-500">
+                                        <strike className='text-red-500'>₹200</strike> {amount > 1000 ? 'Free' : '₹200'}
+                                    </p>
+                                </div>
+                                <div className='border border-slate-200 my-3'></div>
+                                <div className='flex justify-between'>
+                                    <p className="">Total Amount</p>
+                                    <p className="">₹{parseFloat(amount.toFixed(2)).toLocaleString()}</p>
+                                </div>
+                            </div>
+                            {path === '/shippinginfo' ?
+                                <div>
+                                    <RazorpayButton />
+                                </div> :
+                                <button onClick={() => handleOrder()} className="w-full bg-indigo-500 text-white py-2 px-6 rounded-md hover:bg-indigo-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    <Link href={'/shippinginfo'}>Checkout</Link>
+                                </button>}
+
+                            <div className="mt-10">
+                                <h1 className='text-gray-600 text-lg font-medium mb-2'>payment accepted</h1>
+                                <div className="flex flex-wrap gap-2 ">
+                                    <img className='w-14 h-14' src="/mastercard.svg" alt="mastercard" />
+                                    <img className='w-14 h-14' src="/visa.svg" alt="visa" />
+                                    <img className='w-14 h-14' src="/paypal.svg" alt="paypal" />
+                                    <img className='w-14 h-14' src="/google-pay.svg" alt="google-pay" />
+                                    <img className='w-14 h-14' src="/apple-pay.svg" alt="apple-pay" />
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
-                    {path === '/shippinginfo' ?
-                        <div>
-                            <RazorpayButton />
-                        </div> :
-                        <button onClick={() => handleOrder()} className="max-w-96 bg-indigo-500 text-white py-2 px-6 rounded-full hover:bg-indigo-600 transition duration-300 ease-in-out transform hover:scale-105">
-                            <Link href={'/shippinginfo'}>Checkout</Link>
-                        </button>}
 
                 </>
-            )}
-            <div className="mt-10">
-                <h1 className='text-gray-600 text-lg font-medium mb-2'>payment accepted</h1>
-                <div className="flex space-x-4">
-                    <img className='w-14 h-14' src="/mastercard.svg" alt="mastercard" />
-                    <img className='w-14 h-14' src="/visa.svg" alt="visa" />
-                    <img className='w-14 h-14' src="/paypal.svg" alt="paypal" />
-                    <img className='w-14 h-14' src="/google-pay.svg" alt="google-pay" />
-                    <img className='w-14 h-14' src="/apple-pay.svg" alt="apple-pay" />
-                </div>
-            </div>
-        </div>
+            )
+            }
+
+        </div >
     );
 };
 
