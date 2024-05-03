@@ -1,7 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { GlobalContext } from "./GlobalContex";
+import { createContext, useEffect, useMemo, useState } from "react";
 
 export const CartContext = createContext({});
 
@@ -24,7 +23,6 @@ export default function CartProvider({ children }) {
       const ids = data?.pendingItems?.map((item) => item?.product?._id);
       setProductIds(ids || []);
       setCartId(data?.cartId?._id);
-      console.log(data.cartId._id, "data");
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
@@ -35,9 +33,9 @@ export default function CartProvider({ children }) {
     }
   }, [userId]);
 
-  console.log(cartId, "cartId from cartProvider");
 
-  const addToCart = async (item) => {
+  const addToCart = async (item, size) => {
+
     const existingItemIndex = cartItems.findIndex(
       (cartItem) => cartItem.product._id == item._id
     );
@@ -50,7 +48,7 @@ export default function CartProvider({ children }) {
       const data = {
         userId,
         productId: item._id,
-        quantity: updatedCartItems[existingItemIndex].quantity, // Send updated quantity
+        quantity: updatedCartItems[existingItemIndex].quantity,
         total: item.productprice,
       };
 
@@ -63,8 +61,9 @@ export default function CartProvider({ children }) {
       });
 
       const response = await res.json();
-      console.log(response); // Log the response data
+      console.log(response);
     } else {
+      console.log(size, 'size');
       const newItem = { ...item, quantity: 1 };
       const updatedCartItems = [...cartItems, newItem];
 
@@ -72,6 +71,7 @@ export default function CartProvider({ children }) {
         userId,
         productId: item._id,
         quantity: 1,
+        size: size?.name || size || 'null',
         total: item.productprice,
       };
 
@@ -83,7 +83,7 @@ export default function CartProvider({ children }) {
         body: JSON.stringify(data),
       });
       const response = await res.json();
-      console.log(response); // Log the response data
+      console.log(response);
     }
     setProductIds([...productIds, item._id]);
     await fetchCartItems();

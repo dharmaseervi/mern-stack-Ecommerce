@@ -3,18 +3,14 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { CartContext } from "./CartProvider";
-import SearchBar from "./SearchBar";
 import ProfileDropDown from "./ProfileDropDown";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { GlobalContext } from "./GlobalContex";
-import CustomSearchBox from "./AlgoliaCustomeSearchBox";
 import AlgoliaSearch from "./Algolia";
 
 
@@ -428,8 +424,8 @@ export default function Header() {
                   <Link href={"/"}>
                     <span className="sr-only">Your Company</span>
                     <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                      className="h-8 w-auto mix-blend-multiply"
+                      src="/logo4.png"
                       alt=""
                     />
                   </Link>
@@ -571,8 +567,8 @@ export default function Header() {
                   {/* Currency */}
 
                   <div className='flex gap-2' onClick={toggleSearch}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
                     <p className='text-md font-medium cursor-pointer' >search</p>
                   </div>

@@ -16,8 +16,6 @@ export default function GlobalProvider({ children }) {
    
 
 
-
-
     return (
         <GlobalContext.Provider value={{ isSearchOpen, setIsSearchOpen, globalVariable, setGlobalVariable, forceUpdate, setForceUpdate, cartForceUpdate, setCartForceUpdate, userId, genderSelected, setGenderSelected, menuOpen, setMenuOpen }}>
             {children}

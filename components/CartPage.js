@@ -101,8 +101,7 @@ const CartPage = ({ path }) => {
                                             <img src={cartItem?.product?.photo?.[0]} alt={cartItem?.product?.productname} className="xl:w-36 xl:h-36 w-20 h-20 object-cover mr-4 rounded-md" />
                                             <div >
                                                 <h2 className="mb-1">{cartItem?.product?.productname}</h2>
-                                                <p className="text-gray-500 mb-1">Size: {cartItem?.product?.variants?.[1]?.value}</p>
-                                                <p className="text-gray-500 mb-1">Color: {cartItem?.product?.variants?.[0]?.value}</p>
+                                                {cartItem?.size !== 'null' && (<p className="text-gray-500 mb-1">Size: {cartItem?.size}</p>)}
                                                 <p className="text-gray-500 mb-2">Price: ₹{parseFloat(cartItem?.price).toLocaleString()}</p>
                                             </div>
                                         </div>
@@ -122,7 +121,7 @@ const CartPage = ({ path }) => {
                             ))}
                             <div className='border border-gray-200 my-5'></div>
                         </div>
-                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full bg-slate-100 p-10 mx-4 rounded-md  ' : 'lg:col-span-1 xl:col-span-1  px-10 mx-4 py-6 bg-gray-100 rounded-md  '}`}>
+                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full bg-slate-100 p-10 mx-4 rounded-md  ' : 'lg:col-span-1 xl:col-span-1  px-10 mx-4 py-6 bg-gray-100 rounded-md h-96  '}`}>
                             <h1 className='mb-5 text-xl'>order summary</h1>
                             <div className="mb-6">
                                 <div className='flex justify-between'>
@@ -160,7 +159,7 @@ const CartPage = ({ path }) => {
                                     <Link href={'/shippinginfo'}>Checkout</Link>
                                 </button>}
 
-                            <div className="mt-10">
+                            <div className="mt-20">
                                 <h1 className='text-gray-600 text-lg font-medium mb-2'>payment accepted</h1>
                                 <div className="flex flex-wrap gap-2 ">
                                     <img className='w-14 h-14' src="/mastercard.svg" alt="mastercard" />

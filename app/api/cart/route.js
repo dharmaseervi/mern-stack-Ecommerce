@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
     try {
-        const { userId, productId, quantity, total } = await request.json();
+        const { userId, productId, quantity, total, size } = await request.json();
 
         const id = mongoose.Types.ObjectId.createFromHexString(userId);
 
@@ -14,7 +14,7 @@ export async function POST(request) {
             // If the cart doesn't exist, create a new one
             cart = new cartModel({
                 user: userId,
-                items: [{ product: productId, quantity, price: total }],
+                items: [{ product: productId, quantity, price: total, size }],
                 modifiedOn: new Date()
             });
         } else {
@@ -27,7 +27,7 @@ export async function POST(request) {
                 existingItem.price += total;
             } else {
                 // If the product doesn't exist, add it to the cart
-                cart.items.push({ product: productId, quantity, price: total });
+                cart.items.push({ product: productId, quantity, price: total, size });
             }
 
             // Update the modifiedOn field
@@ -182,7 +182,6 @@ export async function GET(request) {
         if (id) {
             cartId = await cartModel.findOne({ user: id })
         }
-        console.log('Cart items fetched', cartId);
         return NextResponse.json({ pendingItems, cartId });
     } catch (error) {
         console.error('Error:', error);

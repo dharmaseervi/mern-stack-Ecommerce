@@ -109,7 +109,7 @@ export default function Page() {
           <h1 className="text-center text-xl font-medium">No Orders Found</h1>
         )}
         {sortedFilteredOrders.map((order) => (
-          <Link href={"/order/" + order.order._id} key={order._id}>
+          <Link href={"/userorder/" + order.order._id} key={order._id}>
             {order.order.items.map((item, index) => (
               <div
                 key={index}

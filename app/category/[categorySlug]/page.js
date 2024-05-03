@@ -42,14 +42,13 @@ const subCategories = {
         { name: "Perfumes", href: "perfumes" },
     ],
     grocery: [
-        { name: "Fruits", href: "#" },
-        { name: "Vegetables", href: "#" },
-        { name: "Dairy", href: "#" },
-        { name: "Beverages", href: "#" },
-        { name: "Bakery", href: "#" },
-        { name: "Meat", href: "#" },
-        { name: "Snacks", href: "#" },
-        { name: "Household", href: "#" },
+        { name: "Fruits", href: "fruits" },
+        { name: "Vegetables", href: "vegetables" },
+        { name: "Dairy", href: "dairy" },
+        { name: "Beverages", href: "beverages" },
+        { name: "Bakery", href: "backery" },
+        { name: "Snacks", href: "snacks" },
+        { name: "Household", href: "household" },
     ],
     mobile: [
         { name: "Mobile Phones", href: "#" },
@@ -62,23 +61,22 @@ const subCategories = {
         { name: "Accessories", href: "#" },
     ],
     furniture: [
-        { name: "Living Room", href: "#" },
-        { name: "Bedroom", href: "#" },
-        { name: "Kitchen", href: "#" },
-        { name: "Dining", href: "#" },
-        { name: "Office", href: "#" },
-        { name: "Outdoor", href: "#" },
-        { name: "Kids", href: "#" },
-        { name: "Accessories", href: "#" },
+        { name: "Living Room", href: "Living Room" },
+        { name: "Bedroom", href: "Bedroom" },
+        { name: "Kitchen", href: "Kitchen" },
+        { name: "Dining", href: "ining" },
+        { name: "Office", href: "Office" },
+        { name: "Outdoor", href: "Outdoor" },
+        { name: "Accessories", href: "Accessories" },
     ],
     cosmetics: [
-        { name: "Skin Care", href: "#" },
-        { name: "Hair Care", href: "#" },
-        { name: "Makeup", href: "#" },
-        { name: "Fragrance", href: "#" },
-        { name: "Bath & Body", href: "#" },
-        { name: "Tools & Brushes", href: "#" },
-        { name: "Accessories", href: "#" },
+        { name: "Skin Care", href: "skin care" },
+        { name: "Hair Care", href: "hair care" },
+        { name: "Makeup", href: "makeup" },
+        { name: "Fragrance", href: "Fragrance" },
+        { name: "Bath & Body", href: "Bath & Body" },
+        { name: "Tools & Brushes", href: "Tools & Brushes" },
+        { name: "Accessories", href: "Accessories" },
     ],
 };
 
@@ -148,24 +146,7 @@ const filters = {
             ],
         },
     ],
-    grocery: [
-        {
-            id: "category",
-            name: "Category",
-            options: [
-                { value: "fruits", label: "Fruits", checked: false },
-                { value: "vegetables", label: "Vegetables", checked: false },
-            ],
-        },
-        {
-            id: "price",
-            name: "Price",
-            options: [
-                { value: "under_5", label: "Under $5", checked: false },
-                { value: "5_10", label: "$5 - $10", checked: false },
-            ],
-        },
-    ],
+  
     mobile: [
         {
             id: "brand",

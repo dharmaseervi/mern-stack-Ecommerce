@@ -1,5 +1,5 @@
 import React from 'react';
-import { PuffLoader, RingLoader } from 'react-spinners';
+import { PuffLoader} from 'react-spinners';
 
 
 const Spinner = () => {
@@ -9,7 +9,7 @@ const Spinner = () => {
                 height="80"
                 width="80"
                 color="#4fa94d"
-                ariaLabel="puff-loading"
+                aria-label="puff-loading"
                 wrapperStyle={{}}
             />
             
