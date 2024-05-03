@@ -13,6 +13,7 @@ const CartPage = ({ path }) => {
     const { cartItems, removeItem, increaseQuantity, decreaseQuantity, cartId, setRazorpayOrder, orderId, setOrderId } = useContext(CartContext);
     const { data: session } = useSession();
     const userId = session?.user?._id;
+    console.log(session);
 
     const [isLoading, setIsLoading] = useState(true);
     const amount = cartItems?.reduce((acc, item) => acc + parseFloat(item.price * item.quantity), 0);
