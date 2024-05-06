@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import RazorpayButton from './Razorpay';
 import Spinner from './Spinner';
 import EmptyCart from './EmptyCart';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -14,11 +15,11 @@ const CartPage = ({ path }) => {
     const { data: session } = useSession();
     const userId = session?.user?._id;
     console.log(session);
-
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const amount = cartItems?.reduce((acc, item) => acc + parseFloat(item.price * item.quantity), 0);
     const amountInPaise = amount * 100;
-
+    console.log(cartItems);
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -40,6 +41,12 @@ const CartPage = ({ path }) => {
 
     const handleOrder = async () => {
         try {
+
+            if (!session) {
+                router.push('/signup');
+                return; 
+            }
+
             const res = await fetch('/api/order', {
                 method: 'POST',
                 headers: {
@@ -122,7 +129,7 @@ const CartPage = ({ path }) => {
                             ))}
                             <div className='border border-gray-200 my-5'></div>
                         </div>
-                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full bg-slate-100 p-10 mx-4 rounded-md  ' : 'lg:col-span-1 xl:col-span-1  px-10 mx-4 py-6 bg-gray-100 rounded-md h-96  '}`}>
+                        <div className={`${path === '/shippinginfo' ? 'lg:col-span-2 lg:w-full bg-slate-100 p-10  rounded-md  ' : 'lg:col-span-1 xl:col-span-1  px-10 mx-4 py-6 bg-gray-100 rounded-md h-96  '}`}>
                             <h1 className='mb-5 text-xl'>order summary</h1>
                             <div className="mb-6">
                                 <div className='flex justify-between'>

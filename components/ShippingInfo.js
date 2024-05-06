@@ -85,7 +85,7 @@ export default function ShippinginfoPage() {
         <Spinner />
       ) : (
         <>
-          <div className="flex md:justify-between justify-start md:items-center w-full flex-col md:flex-row gap-3 h-full ">
+          <div className="flex md:justify-between justify-start md:items-center w-full flex-col md:flex-row gap-3 mb-5 h-full ">
             <div>
               <h1 className="text-2xl font-medium ">select delivery address</h1>
             </div>
@@ -113,7 +113,7 @@ export default function ShippinginfoPage() {
             >
               <div
                 key={defaultAddress._id}
-                className="  w-full h-44 gap-2 flex flex-col p-2 justify-between"
+                className="  w-full h-44 gap-2 flex flex-col p-2 justify-between  mb-2"
               >
                 <input
                   className="sr-only"
@@ -153,7 +153,7 @@ export default function ShippinginfoPage() {
               </div>
             </label>
           )}
-          <h1 className="font-medium text-red-600 capitalize">other address</h1>
+          <h1 className="font-medium text-red-600 capitalize mt-5">other address</h1>
           {otherAddresses?.map((item) => (
             <label
               key={item._id}
@@ -166,7 +166,7 @@ export default function ShippinginfoPage() {
             >
               <div
                 key={item._id}
-                className="  w-full h-44 gap-2 flex flex-col p-2 justify-between"
+                className="  w-full h-44 gap-2 flex flex-col p-2 justify-between mb-2"
               >
                 <input
                   type="radio"

@@ -35,8 +35,8 @@ export default function ProductListCard({ product }) {
                                             className="h-full w-full object-cover object-center group-hover:opacity-75"
                                         />
                                     </div>
-                                    <h3 className="mt-4 text-sm text-gray-700">{product.productname}</h3>
-                                    <p className="mt-1 text-lg font-medium text-gray-900">{product.productprice}</p>
+                                    <h3 className="mt-4 text-sm text-gray-700 overflow-hidden whitespace-nowrap ">{product.productname}</h3>
+                                    <p className="mt-1 text-lg font-medium text-gray-900">₹{parseFloat(product.productprice).toLocaleString()}</p>
                                 </Link>
                             ))}
                         </div>

@@ -44,7 +44,7 @@ export default function Page() {
 
   const allItems = filteredOrders.flatMap((order) => order.order.items);
 
-  const sortedFilteredOrders = [...filteredOrders]; // Copy the filteredOrders array
+  const sortedFilteredOrders = [...filteredOrders]; 
 
   // Sort all items based on the selected sorting criteria
   sortedFilteredOrders.forEach((order) => {

@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Mern-Stack | E-commerce website",
   description: "Mern-Stack | E-commerce website",
+  icons: { icon: '/logo.jpg' },
 };
 
 export default function RootLayout({ children }) {

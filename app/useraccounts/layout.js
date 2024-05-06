@@ -8,7 +8,7 @@ export default function Layout({ children }) {
                 <div className="lg:h-full  w-full  lg:w-1/2 xl:w-1/3">
                     <SideNavbar />
                 </div>
-                <div className="lg:px-4 px-8 py-5 w-full h-full overflow-auto">
+                <div className="lg:px-4 px-8 py-5 w-full h-full ">
                     {children}
                 </div>
             </div>

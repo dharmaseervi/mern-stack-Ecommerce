@@ -100,7 +100,7 @@ export default function ProductOverview({ productListId }) {
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        <div className="mx-auto  mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={productData?.photo?.[0]}
@@ -235,7 +235,7 @@ export default function ProductOverview({ productListId }) {
               <h3 className="sr-only">Description</h3>
               <div className="space-y-6">
                 <div className="text-base text-gray-900">
-                  <ul className="desc-line  pl-4" >
+                  <ul className="desc-line " >
                     {productData?.productdescription?.split("\r\n")?.map((point) => (
                       <div className='flex' key={point}>
                         <li className='font-serif'>{point.trim(' ')}</li>

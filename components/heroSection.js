@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HeroSection() {
     return (
-        <div className="h-96 bg-slate-500 flex justify-center items-center  m-6 rounded">
-            <div className="flex flex-col lg:flex-row w-full h-full lg:w-full  border justify-center ">
+        <div className="lg:h-96 h-full bg-slate-500 flex justify-center items-center  m-6 rounded p-4">
+            <div className="flex flex-col lg:flex-row w-full h-full lg:w-full justify-center ">
                 {/* Image Section */}
                 <div className="w-full lg:w-1/2 h-full  overflow-hidden flex justify-center items-center   ">
                     <Image
@@ -13,7 +14,7 @@ export default function HeroSection() {
                         width={400}
                         height={400}
                         className='fill ' 
-
+                        loading="lazy"
                     />
                 </div>
 
@@ -25,12 +26,12 @@ export default function HeroSection() {
                     <p className="text-lg md:text-xl text-gray-300 mb-8 text-center">
                         Explore our latest collection and enjoy exclusive discounts.
                     </p>
-                    <a
-                        href="#shop-now"
+                    <Link
+                        href="/category/electronic#"
                         className="bg-black text-white py-3 px-6 rounded-full text-lg font-semibold hover:bg-gray-700 transition duration-300 ease-in-out"
                     >
                         Shop Now
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

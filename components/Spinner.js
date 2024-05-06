@@ -10,7 +10,6 @@ const Spinner = () => {
                 width="80"
                 color="#4fa94d"
                 aria-label="puff-loading"
-                wrapperStyle={{}}
             />
             
         </div>

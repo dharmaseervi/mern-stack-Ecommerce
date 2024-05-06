@@ -101,16 +101,16 @@ export default function Page({ params }) {
 
     return (
         <Layout>
-            <div className='w-full h-full  shadow-md rounded-md flex  '>
-                <div className="w-full px-6 mt-8">
-                    <form className=" lg:grid lg:grid-cols-2 gap-2" onSubmit={handleSubmit} >
-                        <div className='lg:col-span-1 border  rounded-md p-3'>
+            <div className='w-full h-full   rounded-md flex  '>
+                <div className="w-full mt-8">
+                    <form className=" lg:grid lg:grid-cols-2  gap-2" onSubmit={handleSubmit} >
+                        <div className='lg:col-span-1 border  rounded-md p-3 mb-3'>
                             <h1 className="text-xl font-semibold mb-4">Personal Information</h1>
                             <div className="mb-4">
                                 <p className="text-sm text-gray-600">Update your personal information below:</p>
                             </div>
                         </div>
-                        <div className='lg:col-span-1 border rounded-md p-3 h-4/3 '>
+                        <div className='lg:col-span-1 border rounded-md p-3 h-4/3  '>
                             {isPasswordChange ?
                                 <div>
                                     <div>

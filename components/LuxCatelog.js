@@ -1,11 +1,13 @@
 'use client'
 import React, { useEffect, useState, useRef } from 'react';
+import Spinner from './Spinner';
 
 const LuxCatalog = () => {
     const [categoryData, setCategoryData] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     const [arrowDisable, setArrowDisable] = useState(true);
+    const [isLoaded, setIsLoaded] = useState(true);
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -20,6 +22,7 @@ const LuxCatalog = () => {
                     return item.subcategory.includes("clothing/lux/men");
                 });
                 setCategoryData(filteredItems);
+                setIsLoaded(false)
             } catch (error) {
                 console.error('Error fetching category data:', error);
             }
@@ -42,7 +45,7 @@ const LuxCatalog = () => {
 
     return (
         <div>
-            <section className="bg-slate-100 my-3 py-6 flex flex-col justify-between items-center m-6 rounded-md ">
+            {isLoaded ? (<Spinner />) : (<section className="bg-slate-100 my-3 py-6 flex flex-col justify-between items-center m-6 rounded-md ">
                 <h2 className="text-3xl font-semibold mb-8">Luxury Catalog</h2>
                 <div className="relative w-full">
                     <div className="overflow-x-auto" ref={containerRef} style={{ overflowX: 'hidden' }}>
@@ -50,7 +53,7 @@ const LuxCatalog = () => {
                             {categoryData.map((category) => (
                                 <div key={category.id} className="flex-shrink-0 w-72 bg-gray-100 rounded-lg shadow-md p-6 flex flex-col justify-between mr-4">
                                     <div className="aspect-w-3 aspect-h-4 mb-4">
-                                        <img src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
+                                        <img  src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
                                     </div>
                                     <div className="">
                                         <h3 className="text-sm font-semibold">{category.productname}</h3>
@@ -78,7 +81,7 @@ const LuxCatalog = () => {
                         &gt;
                     </button>
                 </div>
-            </section>
+            </section>)}
         </div>
     );
 };

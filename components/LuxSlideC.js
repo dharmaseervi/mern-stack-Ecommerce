@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import gsap from 'gsap';
+import Link from 'next/link';
 
 export default function LuxSlideC() {
     const [categoryData, setCategoryData] = useState([]);
@@ -25,13 +26,13 @@ export default function LuxSlideC() {
         fetchCategoryData();
     }, []);
 
-   
+
 
     return (
         <div className='m-6 rounded'>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                {categoryData.map((category, index) => (
-                    <div key={category.id} className="lux-card bg-gray-100 rounded-lg shadow-md p-6 flex flex-col justify-between">
+                {categoryData.slice(10,18).map((category, index) => (
+                    <Link href={`/luxoverview/${category._id}`} key={category.id} className="lux-card bg-gray-100 rounded-lg shadow-md p-6 flex flex-col justify-between">
                         <div className="aspect-w-3 aspect-h-4 mb-4">
                             <img src={category?.photo?.[0]} alt={category.productname} className="object-cover w-full h-full rounded mix-bv" />
                         </div>
@@ -42,7 +43,7 @@ export default function LuxSlideC() {
                                 <span className="text-red-500 font-semibold">&#x20b9;{category.productprice}</span>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

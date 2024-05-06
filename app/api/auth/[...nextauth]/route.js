@@ -43,9 +43,10 @@ const authOptions = {
         strategy: 'jwt',
     },
     callbacks: {
-        async signIn(account, profile) {
+        async signIn({ account, profile }) {
+            // console.log(profile, 'profile');
             try {
-                const { email, name } = account.profile;
+                const { email, name } = profile;
                 await connectDB();
                 const existingUser = await UserRegister.findOne({ email });
                 if (existingUser) {
@@ -57,7 +58,10 @@ const authOptions = {
                     password: 'null',
                 });
                 await newUser.save();
-                return newUser;
+                return {
+                    ...newUser.toObject(),
+                    id: newUser._id // Add MongoDB ID to the user object
+                };
             } catch (error) {
                 console.error(error);
                 return error;
@@ -69,9 +73,17 @@ const authOptions = {
             return token;
         },
         session: async ({ session, token }) => {
-            session.user = token.user;  
+            const userFromDB = await UserRegister.findOne({ email: session.user.email });
+            if (userFromDB) {
+                session.user = {
+                    ...session.user,
+                    _id: userFromDB._id.toString()
+                };
+            }
             return session;
         },
+
+
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
