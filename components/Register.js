@@ -13,9 +13,19 @@ export default function Register() {
   });
 
   const [errorMessage, setErrorMessage] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(registerform);
+
+    // Password validation
+    const validation = validatePassword(registerform.password);
+    const isPasswordValid = Object.values(validation).every((isValid) => isValid);
+
+    if (!isPasswordValid) {
+      setErrorMessage("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/register/", {
         method: "POST",
@@ -37,10 +47,21 @@ export default function Register() {
     }
   };
 
+  // Password validation function
+  const validatePassword = (password) => {
+    return {
+      length: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      number: /\d/.test(password),
+      special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password),
+    };
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img
+        <img
           className="mx-auto h-20 w-auto"
           src="/logo.jpg"
           alt="Your Company"
@@ -51,15 +72,15 @@ export default function Register() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              full name
+              Full Name
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="name"
                 name="name"
@@ -80,7 +101,7 @@ export default function Register() {
             >
               Email address
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="email"
                 name="email"
@@ -105,7 +126,7 @@ export default function Register() {
                 Password
               </label>
             </div>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="password"
                 name="password"
@@ -123,6 +144,18 @@ export default function Register() {
               />
             </div>
           </div>
+          {registerform.password.length > 0 && (
+            <div className="flex space-x-2">
+              {Object.entries(validatePassword(registerform.password)).map(([key, isValid]) => (
+                <div
+                  key={key}
+                  className={`rounded-md py-0 text-sm ${isValid ? 'text-green-500' : 'text-red-500'}`}
+                >
+                  {key}
+                </div>
+              ))}
+            </div>
+          )}
           {errorMessage && (
             <div className="text-red-600 text-sm">{errorMessage}</div>
           )}
@@ -158,6 +191,7 @@ export default function Register() {
     </div>
   );
 }
+
 function ChromeIcon(props) {
   return (
     <svg
@@ -178,5 +212,5 @@ function ChromeIcon(props) {
       <line x1="3.95" x2="8.54" y1="6.06" y2="14" />
       <line x1="10.88" x2="15.46" y1="21.94" y2="14" />
     </svg>
-  )
+  );
 }
