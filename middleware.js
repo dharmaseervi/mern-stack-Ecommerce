@@ -7,7 +7,7 @@ export async function middleware(request) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  const privatePaths = ["/useraccounts", "/userorder", "/savedaddress", ]; // Add your private paths here
+  const privatePaths = ["/useraccounts", "/userorder", "/savedaddress" ]; // Add your private paths here
 
   if (!token && privatePaths.includes(path)) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
@@ -19,6 +19,9 @@ export async function middleware(request) {
   if (!token && request.nextUrl.pathname.startsWith("/userorder/")) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
+  // if (!token && request.nextUrl.pathname.startsWith("/verify-reset/")) {
+  //   return NextResponse.redirect(new URL("/", request.nextUrl));
+  // }
 }
 
 export const config = {
