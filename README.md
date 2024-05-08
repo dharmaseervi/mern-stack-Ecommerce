@@ -1,3 +1,71 @@
+# My eCommerce Website Nextcart
+
+This is an eCommerce website built using Next.js 14 with React and Tailwind CSS. It provides a seamless shopping experience with various features and functionalities.
+
+## Features
+
+### Cart Functionality
+- Users can add products to their cart and manage their cart items.
+- Cart functionality allows users to review their selected items, update quantities, and remove items before checkout.
+
+### User Authentication
+- Users can create accounts, login, and logout securely.
+- Password validation ensures strong passwords for user accounts.
+- Forgot password functionality allows users to reset their passwords via OTP validation.
+
+### MongoDB Database Integration
+- Utilizes MongoDB for storing user data, product information, orders, and other relevant data.
+- Provides a scalable and efficient database solution for the eCommerce platform.
+
+### Email Notifications
+- Sends email notifications to users after placing an order.
+- Keeps users informed about their order status and provides updates on delivery.
+
+### Order Tracking
+- Enables users to track their orders and view order history.
+- Provides transparency and visibility into the order fulfillment process.
+
+### Admin Panel
+- Admin panel allows administrators to manage products, categories, and orders.
+- Provides a user-friendly interface for adding, editing, and deleting products.
+
+### Social Media Login
+- Supports social media login using NextAuth for a seamless authentication experience.
+- Allows users to login using their preferred social media accounts such as Google, Facebook, or Twitter.
+
+### Payment Gateway Integration
+- Integrates Razorpay payment gateway for secure and convenient online payments.
+- Enables users to make payments using credit/debit cards, net banking, UPI, or other payment methods supported by Razorpay.
+
+### Search Functionality
+- Implements Algolia search for efficient and accurate product searching.
+- Enables users to quickly find products based on keywords, categories, or filters.
+
+### Product Category and Filtering
+- Organizes products into categories for easier navigation and browsing.
+- Provides filtering options based on price, brand, size, color, and other attributes.
+
+## Technologies Used
+
+## Technologies Used
+
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Backend:** MongoDB
+- **Authentication:** NextAuth
+- **Payment Gateway:** Razorpay
+- **Search:** Algolia
+- **Email Notifications:** Nodemailer
+
+## Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
