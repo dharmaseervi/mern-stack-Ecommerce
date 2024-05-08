@@ -38,6 +38,7 @@ const ConfirmationPage = () => {
       {isLoading ? (
         <div className=" w-full flex justify-center items-center ">
           <Spinner />
+          <p>fetching order confirmation..</p>
         </div>
       ) : (
         <div className="h-full w-full items-center justify-center bg-gray-100 lg:grid lg:grid-cols-2 ">
@@ -82,7 +83,7 @@ const ConfirmationPage = () => {
                     </div>
                     <p>₹{item?.product?.productprice}</p>
                   </div>
-                  
+
                 </div>
               ))}
             </div>

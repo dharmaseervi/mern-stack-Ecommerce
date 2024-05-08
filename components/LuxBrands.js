@@ -12,7 +12,7 @@ export default function LuxBrands() {
         },
         {
             brandName: 'Gucci',
-            brandImage: '/Gucci.png',
+            brandImage: '/gucci.jpg',
             href: '/Gucci',
             brandDescription: 'Gucci is an Italian luxury brand of fashion and leather goods. Gucci was founded by Guccio Gucci in Florence, Tuscany, in 1921. Gucci generated about €4.2 billion in revenue worldwide in 2008 according to BusinessWeek and climbed to 41st position in the magazine\'s annual 2009 "Top Global 100 Brands" chart created by Interbrand; it retained that rank in Interbrand\'s 2014 index.',
         },

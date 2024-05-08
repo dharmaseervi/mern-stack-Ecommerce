@@ -75,7 +75,6 @@ export default function OrderPage({ params }) {
 
         </div>
 
-
         {
           orderPlaced?.map((order, index) => (
             <div
@@ -114,7 +113,6 @@ export default function OrderPage({ params }) {
             </div>
           ))
         }
-
         {error && <p className="text-red-500">{error}</p>}
       </Layout >
     </div >
