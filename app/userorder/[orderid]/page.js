@@ -20,7 +20,7 @@ export default function OrderPage({ params }) {
     const fetchOrder = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/adminorder?orderid=${orderid}`,
+          `https://nextcart-dharmaseervis-projects.vercel.app/api/adminorder?orderid=${orderid}`,
           {
             method: "GET",
             headers: {
